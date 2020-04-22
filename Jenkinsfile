@@ -3,11 +3,8 @@ node('docker-slave') {
     stage 'Checkout'
         checkout scm
     
-    stage 'Build'
+    stage 'Build & Unit test'
     sh "docker build -t accountownerapp:B${BUILD_NUMBER} -f Dockerfile ."
-    
-    stage 'UnitTest'
-    sh "docker build -t accountownerapp:test-B${BUILD_NUMBER} -f Dockerfile.Integration ."
     
     stage 'Pusblish UT Reports'
         containerID = sh (
