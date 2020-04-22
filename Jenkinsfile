@@ -19,9 +19,4 @@ node('docker-slave') {
         sh "docker stop ${containerID}"
         sh "docker rm ${containerID}"
         step([$class: 'MSTestPublisher', failOnError: false, testResultsFile: 'test_results.xml'])  
-    
-    stage 'Integration Test'
-        //sh 'docker-compose -f docker-compose.integration.yml up'
-        sh "docker-compose -f docker-compose.integration.yml up --force-recreate --abort-on-container-exit"
-        sh "docker-compose -f docker-compose.integration.yml down -v"
 }
